@@ -5,7 +5,7 @@
 
 ## Requirements
 
-- Global `vleam` install, usually with `npm install -g vleam` 
+- Install `vleam` locally, usually with `pnpm add -D vleam`
 - [conform.nvim](https://github.com/stevearc/conform.nvim)
 
 ## Install

@@ -1,12 +1,21 @@
-local configs = require 'lspconfig.configs'
-if not configs.vleam then
-  configs.vleam = {
+local lspconfig_configs = require("lspconfig.configs")
+local lspconfig_util = require("lspconfig.util")
+
+if not lspconfig_configs.vleam then
+  lspconfig_configs.vleam = {
     default_config = {
-      cmd = { "vleam", "lsp" },
-      filetypes = { 'vue' },
-      root_dir = require "lspconfig.util".root_pattern("package.json", "gleam.toml"),
+      cmd = { "npx", "vleam", "lsp" },
+      filetypes = { "vue" },
+      root_dir = function(fname)
+        local gleam_root = lspconfig_util.root_pattern("gleam.toml")(fname)
+        if not gleam_root then
+          return false
+        else
+          return lspconfig_util.root_pattern("package.json")(fname)
+        end
+      end,
       settings = {},
-    };
+    },
   }
 end
 
