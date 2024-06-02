@@ -26,6 +26,19 @@ if not conform.formatters.vleam then
   conform.formatters.vleam = {
     stdin = true,
     command = conform_util.from_node_modules("vleam"),
-    args = { "format", "--stdin"},
+    args = { "format", "--stdin" },
+    condition = function(_, ctx)
+      local language_tree = vim.treesitter.get_parser(ctx.buf)
+
+      local is_gleam = false
+
+      language_tree:for_each_child(function(tree, lang)
+        if lang == "gleam" then
+          is_gleam = true
+        end
+      end)
+
+      return is_gleam
+    end,
   }
 end
