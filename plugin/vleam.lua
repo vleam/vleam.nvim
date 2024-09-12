@@ -32,7 +32,7 @@ if not conform.formatters.vleam then
 
       local is_gleam = false
 
-      language_tree:for_each_child(function(tree, lang)
+      language_tree:children(function(tree, lang)
         if lang == "gleam" then
           is_gleam = true
         end
